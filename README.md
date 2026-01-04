@@ -122,6 +122,33 @@ Claude Desktop の `claude_desktop_config.json` または Claude Code の `.mcp.
 }
 ```
 
+## Claude Code Skills
+
+Claude Codeで使える便利なSkillを同梱しています。
+
+### subscription-analyzer
+
+口座明細からサブスクリプションを自動検出・分析します。
+
+```
+/subscription-analyzer
+```
+
+**機能:**
+- 80+サービスの自動検出（AI/ML, 開発ツール, クラウド等）
+- カテゴリ別コスト集計
+- 重複課金・解約候補の提案
+
+**検出対象例:**
+| カテゴリ | サービス |
+|---------|---------|
+| AI/ML | ANTHROPIC, OPENAI, MIDJOURNEY, CURSOR |
+| クラウド | AWS, GCP, AZURE, VERCEL, FLY.IO |
+| 開発ツール | GITHUB, NEON, SUPABASE, UPSTASH |
+| 生産性 | NOTION, SLACK, ASANA, FIGMA |
+
+詳細: [.claude/skills/subscription-analyzer/SKILL.md](.claude/skills/subscription-analyzer/SKILL.md)
+
 ## ディレクトリ構成
 
 ```
@@ -138,6 +165,10 @@ freee-mcp/
 │   ├── token_store.py     # トークン暗号化保存
 │   ├── freee_client.py    # freee APIクライアント
 │   └── tools.py           # MCPツール定義
+├── .claude/skills/
+│   └── subscription-analyzer/  # サブスク分析Skill
+│       ├── SKILL.md
+│       └── patterns.yml
 └── tests/
     └── test_integration.py
 ```
