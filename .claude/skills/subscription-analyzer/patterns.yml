@@ -1,0 +1,205 @@
+# サブスクリプション検出パターン
+# 明細テキストに含まれるキーワードでサービスを識別
+
+categories:
+  ai_ml:
+    name: AI/ML
+    patterns:
+      - keyword: ANTHROPIC
+        service: Claude (Anthropic)
+        typical_prices: [2000, 7200, 32000]  # Pro, API, Max
+      - keyword: OPENAI
+        service: ChatGPT / OpenAI API
+        typical_prices: [3000, 3200, 32000]  # Plus, API, Pro
+      - keyword: MIDJOURNEY
+        service: Midjourney
+        typical_prices: [1500, 4500, 9000]
+      - keyword: RUNWAY
+        service: Runway
+        typical_prices: [2000, 7600]
+      - keyword: CURSOR
+        service: Cursor
+        typical_prices: [3000]
+      - keyword: PERPLEXITY
+        service: Perplexity
+        typical_prices: [3000]
+      - keyword: GENSPARK
+        service: Genspark
+        typical_prices: [4400]
+      - keyword: PINSPEC
+        service: Pinspec AI
+        typical_prices: [4000]
+
+  development:
+    name: 開発ツール
+    patterns:
+      - keyword: GITHUB
+        service: GitHub
+        typical_prices: [600, 2800]  # Pro, Team
+      - keyword: VERCEL
+        service: Vercel
+        typical_prices: [3000]
+      - keyword: NETLIFY
+        service: Netlify
+        typical_prices: [2900]
+      - keyword: HEROKU
+        service: Heroku
+        typical_prices: [1000, 3500]
+      - keyword: RAILWAY
+        service: Railway
+        typical_prices: [700]
+      - keyword: SUPABASE
+        service: Supabase
+        typical_prices: [3700]
+      - keyword: PLANETSCALE
+        service: PlanetScale
+        typical_prices: [4500]
+      - keyword: NEON
+        service: Neon
+        typical_prices: [2900]
+
+  cloud:
+    name: クラウドインフラ
+    patterns:
+      - keyword: AWS
+        service: Amazon Web Services
+        variable: true
+      - keyword: AMAZON WEB
+        service: Amazon Web Services
+        variable: true
+      - keyword: GOOGLE CLOUD
+        service: Google Cloud
+        variable: true
+      - keyword: GCP
+        service: Google Cloud
+        variable: true
+      - keyword: AZURE
+        service: Microsoft Azure
+        variable: true
+      - keyword: DIGITALOCEAN
+        service: DigitalOcean
+        variable: true
+      - keyword: CLOUDFLARE
+        service: Cloudflare
+        typical_prices: [3000, 30000]
+
+  productivity:
+    name: 生産性ツール
+    patterns:
+      - keyword: NOTION
+        service: Notion
+        typical_prices: [1200, 2400]
+      - keyword: SLACK
+        service: Slack
+        typical_prices: [1200]
+      - keyword: FIGMA
+        service: Figma
+        typical_prices: [2100]
+      - keyword: CANVA
+        service: Canva
+        typical_prices: [1500]
+      - keyword: MIRO
+        service: Miro
+        typical_prices: [1200]
+      - keyword: AIRTABLE
+        service: Airtable
+        typical_prices: [3000]
+      - keyword: ASANA
+        service: Asana
+        typical_prices: [1650]
+      - keyword: LINEAR
+        service: Linear
+        typical_prices: [1200]
+      - keyword: CLICKUP
+        service: ClickUp
+        typical_prices: [1000]
+
+  communication:
+    name: コミュニケーション
+    patterns:
+      - keyword: ZOOM
+        service: Zoom
+        typical_prices: [2700]
+      - keyword: GOOGLE MEET
+        service: Google Workspace
+        typical_prices: [900, 1800]
+      - keyword: MICROSOFT 365
+        service: Microsoft 365
+        typical_prices: [1500]
+      - keyword: DOCUSIGN
+        service: DocuSign
+        typical_prices: [1500]
+
+  media:
+    name: メディア/エンタメ
+    patterns:
+      - keyword: NETFLIX
+        service: Netflix
+        typical_prices: [990, 1490, 1980]
+      - keyword: SPOTIFY
+        service: Spotify
+        typical_prices: [980, 1580]
+      - keyword: YOUTUBE
+        service: YouTube Premium
+        typical_prices: [1280]
+      - keyword: APPLE.COM/BILL
+        service: Apple Services
+        variable: true
+      - keyword: AMAZON PRIME
+        service: Amazon Prime
+        typical_prices: [600]
+      - keyword: DISNEY
+        service: Disney+
+        typical_prices: [990]
+
+  business:
+    name: ビジネスツール
+    patterns:
+      - keyword: HUBSPOT
+        service: HubSpot
+        variable: true
+      - keyword: SALESFORCE
+        service: Salesforce
+        variable: true
+      - keyword: MAILCHIMP
+        service: Mailchimp
+        typical_prices: [2000]
+      - keyword: SENDGRID
+        service: SendGrid
+        typical_prices: [2900]
+      - keyword: INTERCOM
+        service: Intercom
+        variable: true
+      - keyword: ZENDESK
+        service: Zendesk
+        typical_prices: [7500]
+      - keyword: FREEE
+        service: freee
+        typical_prices: [2680, 5280]
+
+# 課金パターン
+billing_patterns:
+  monthly:
+    description: 月額課金
+    detection: 毎月同一金額が発生
+  annual:
+    description: 年額課金
+    detection: 年1回の高額課金
+  usage_based:
+    description: 従量課金
+    detection: 毎月金額が変動
+
+# 解約候補の判定基準
+cancellation_criteria:
+  - name: 重複サービス
+    description: 同じカテゴリで複数のサービスを契約
+    example: ChatGPT Pro + Claude Pro（片方で十分な場合）
+  - name: 利用頻度低下
+    description: 過去に使用したが現在は使っていない
+    example: 試用後に解約し忘れ
+  - name: 無料代替あり
+    description: 無料プランで十分な機能がある
+    example: GitHub Free で十分な個人利用
+  - name: プランダウングレード可能
+    description: 上位プランだが下位で十分
+    example: Notion Team → Notion Personal
